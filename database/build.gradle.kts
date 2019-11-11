@@ -1,13 +1,11 @@
 plugins {
-    id(BuildPlugins.androidApplication)
+    id(BuildPlugins.androidLibrary)
     id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kotlinAndroidExtensions)
 }
 
 android {
     compileSdkVersion(AndroidSdk.compile)
     defaultConfig {
-        applicationId = "be.harm.mentallist"
         minSdkVersion(AndroidSdk.min)
         targetSdkVersion(AndroidSdk.target)
         versionCode = 1
@@ -29,7 +27,6 @@ dependencies {
     implementation(fileTree("libs"))
 
     implementation(project(":domain"))
-    implementation(project(":database"))
 
     implementation(CommonDependencies.kotlinStdLib)
     implementation(AndroidDependencies.appCompat)

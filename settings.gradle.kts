@@ -1,2 +1,2 @@
-include(":app", ":domain")
+include(":app", ":domain", ":database")
 rootProject.name = "MentalList"
