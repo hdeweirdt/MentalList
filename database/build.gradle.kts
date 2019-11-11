@@ -1,6 +1,7 @@
 plugins {
     id(BuildPlugins.androidLibrary)
     id(BuildPlugins.kotlinAndroid)
+    id(DatabaseDependencies.sqldelight)
 }
 
 android {
@@ -29,12 +30,7 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(CommonDependencies.kotlinStdLib)
-    implementation(AndroidDependencies.appCompat)
-    implementation(AndroidDependencies.core)
 
     testImplementation(TestDependencies.junit)
     testImplementation(TestDependencies.mockk)
-
-    androidTestImplementation(TestDependencies.android_junit)
-    androidTestImplementation(TestDependencies.espresso)
 }

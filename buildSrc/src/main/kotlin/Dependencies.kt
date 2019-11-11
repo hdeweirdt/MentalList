@@ -4,7 +4,6 @@ object BuildPlugins {
 
     object Versions {
         const val gradleVersion = "3.5.2"
-        const val sqlDelightVersion = "1.2.0"
     }
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.gradleVersion}"
@@ -16,9 +15,6 @@ object BuildPlugins {
     const val library = "java-library"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
 
-    const val sqldelight = "com.squareup.sqldelight"
-    const val sqldelightGradlePlugin =
-            "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelightVersion}"
 }
 
 object AndroidSdk {
@@ -43,12 +39,22 @@ object AndroidDependencies {
     const val core = "androidx.core:core-ktx:${Versions.core}"
 }
 
+object DatabaseDependencies {
+    private object Versions {
+        const val sqlDelightVersion = "1.2.0"
+    }
+
+    const val sqldelight = "com.squareup.sqldelight"
+    const val sqldelightGradlePlugin =
+            "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelightVersion}"
+}
+
 object TestDependencies {
     private object Versions {
         const val junit = "4.12"
         const val androidJunit = "1.1.1"
         const val espresso = "3.2.0"
-        const val mockk = "1.9.3.kotlin12"
+        const val mockk = "1.9.2"
     }
 
     const val junit = "junit:junit:${Versions.junit}"
