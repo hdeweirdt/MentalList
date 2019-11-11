@@ -27,6 +27,9 @@ android {
 
 dependencies {
     implementation(fileTree("libs"))
+
+    implementation(project(":domain"))
+
     implementation(CommonDependencies.kotlinStdLib)
     implementation(AndroidDependencies.appCompat)
     implementation(AndroidDependencies.core)
