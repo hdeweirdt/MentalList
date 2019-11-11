@@ -1,0 +1,33 @@
+-- SHOPPING LIST
+CREATE TABLE shoppingLists(
+    list_id INTEGER PRIMARY KEY NOT NULL,
+    listName TEXT NOT NULL
+);
+
+CREATE INDEX shoppingList_name ON shoppingLists(listName);
+
+insertList:
+INSERT INTO shoppingLists(list_id, listName) VALUES (?,?);
+
+getLists:
+SELECT * FROM shoppingLists;
+
+getList:
+SELECT * FROM shoppingLists WHERE list_id = ? LIMIT 1;
+
+-- SHOPPING ITEM
+CREATE TABLE shoppingItems(
+    item_id INTEGER PRIMARY KEY NOT NULL,
+    itemName TEXT NOT NULL,
+    list_id INTEGER NOT NULL,
+    FOREIGN KEY(list_id)
+        REFERENCES shoppingLists(list_id)
+);
+
+CREATE INDEX shoppingItem_name ON shoppingItems(itemName);
+
+insertItem:
+INSERT INTO shoppingItems(item_id, itemName, list_id) VALUES (?, ?, ?);
+
+getItemsFromList:
+SELECT * FROM shoppingItems WHERE list_id = ?;
