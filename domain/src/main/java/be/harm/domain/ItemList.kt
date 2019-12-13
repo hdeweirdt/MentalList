@@ -1,13 +1,13 @@
 package be.harm.domain
 
-class ShoppingList(
-    val id: Long = 0L,
-    var name: String
+class ItemList(
+    var name: String,
+    val id: Long = 0L
 ) {
-    private val _itemList = mutableListOf<ShoppingItem>()
-    val itemList: List<ShoppingItem> = _itemList
+    private val _itemList = mutableListOf<Item>()
+    val itemList: List<Item> = _itemList
 
-    fun add(newItem: ShoppingItem) {
+    fun add(newItem: Item) {
         require(!_itemList.contains(newItem)) { "Item $newItem is already in this list." }
 
         _itemList += newItem
@@ -20,7 +20,7 @@ class ShoppingList(
         _itemList.removeAt(index)
     }
 
-    fun remove(shoppingItem: ShoppingItem) {
-        _itemList.remove(shoppingItem)
+    fun remove(item: Item) {
+        _itemList.remove(item)
     }
 }

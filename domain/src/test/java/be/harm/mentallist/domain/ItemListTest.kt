@@ -1,7 +1,7 @@
 package be.harm.mentallist.domain
 
-import be.harm.domain.ShoppingItem
-import be.harm.domain.ShoppingList
+import be.harm.domain.Item
+import be.harm.domain.ItemList
 import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -9,20 +9,20 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class ShoppingListTest {
-    private lateinit var subject: ShoppingList
+class ItemListTest {
+    private lateinit var subject: ItemList
 
-    private val shoppingListName = "Name"
+    private val listName = "Name"
 
     @Before
     fun setUp() {
-        subject = ShoppingList(shoppingListName)
+        subject = ItemList(listName)
     }
 
     @Test
     fun shoppingList_constructor_emptyList() {
         // Act
-        subject = ShoppingList(shoppingListName)
+        subject = ItemList(listName)
 
         // Assert
         assertTrue(
@@ -34,7 +34,7 @@ class ShoppingListTest {
     @Test
     fun shoppingList_addNewItem_isAddedToList() {
         // Arrange
-        val newItem = mockk<ShoppingItem>()
+        val newItem = mockk<Item>()
 
         // Act
         subject.add(newItem)
@@ -46,7 +46,7 @@ class ShoppingListTest {
     @Test(expected = IllegalArgumentException::class)
     fun shoppingList_addItemAlreadyThere_throwsError() {
         // Arrange
-        val newItem = mockk<ShoppingItem>()
+        val newItem = mockk<Item>()
         subject.add(newItem)
 
         // Act
@@ -59,8 +59,8 @@ class ShoppingListTest {
     @Test
     fun shoppingList_addNewItem_addedToEndOfList() {
         // Arrange
-        val firstItem = mockk<ShoppingItem>()
-        val secondItem = mockk<ShoppingItem>()
+        val firstItem = mockk<Item>()
+        val secondItem = mockk<Item>()
         subject.add(firstItem)
 
         // Act
@@ -73,9 +73,9 @@ class ShoppingListTest {
     @Test
     fun shoppingList_removeItemAtPosition_validPosition_removes() {
         // Arrange
-        val firstItem = mockk<ShoppingItem>()
-        val secondItem = mockk<ShoppingItem>()
-        val thirdItem = mockk<ShoppingItem>()
+        val firstItem = mockk<Item>()
+        val secondItem = mockk<Item>()
+        val thirdItem = mockk<Item>()
         subject.add(firstItem)
         subject.add(secondItem)
         subject.add(thirdItem)
@@ -123,9 +123,9 @@ class ShoppingListTest {
     @Test
     fun shoppingList_removeExistingItem_removed() {
         // Arrange
-        val firstItem = mockk<ShoppingItem>()
-        val secondItem = mockk<ShoppingItem>()
-        val thirdItem = mockk<ShoppingItem>()
+        val firstItem = mockk<Item>()
+        val secondItem = mockk<Item>()
+        val thirdItem = mockk<Item>()
         subject.add(firstItem)
         subject.add(secondItem)
         subject.add(thirdItem)
@@ -141,9 +141,9 @@ class ShoppingListTest {
     @Test
     fun shoppingList_removeNonExistingItem_NOP() {
         // Arrange
-        val firstItem = mockk<ShoppingItem>()
-        val secondItem = mockk<ShoppingItem>()
-        val thirdItem = mockk<ShoppingItem>()
+        val firstItem = mockk<Item>()
+        val secondItem = mockk<Item>()
+        val thirdItem = mockk<Item>()
         subject.add(firstItem)
         subject.add(secondItem)
         subject.add(thirdItem)

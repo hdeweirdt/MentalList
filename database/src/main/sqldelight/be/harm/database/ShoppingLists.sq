@@ -1,38 +1,38 @@
 -- SHOPPING LIST
-CREATE TABLE shoppingListEntity(
+CREATE TABLE listEntity(
     list_id INTEGER PRIMARY KEY,
     listName TEXT NOT NULL
 );
 
-CREATE INDEX shoppingList_name ON shoppingListEntity(listName);
+CREATE INDEX List_name ON listEntity(listName);
 
 insertList:
-INSERT INTO shoppingListEntity(listName) VALUES (?);
+INSERT INTO listEntity(listName) VALUES (?);
 insertListWithId:
-INSERT INTO shoppingListEntity(list_id, listName) VALUES (?, ?);
+INSERT INTO listEntity(list_id, listName) VALUES (?, ?);
 
 getLists:
-SELECT * FROM shoppingListEntity;
+SELECT * FROM listEntity;
 
 getList:
-SELECT * FROM shoppingListEntity WHERE list_id = ? LIMIT 1;
+SELECT * FROM listEntity WHERE list_id = ? LIMIT 1;
 
--- SHOPPING ITEM
-CREATE TABLE shoppingItemEntity(
+--  ITEM
+CREATE TABLE ItemEntity(
     item_id INTEGER PRIMARY KEY,
     itemName TEXT NOT NULL,
     list_id INTEGER NOT NULL,
     FOREIGN KEY(list_id)
-        REFERENCES shoppingListEntity(list_id)
+        REFERENCES listEntity(list_id)
 );
 
-CREATE INDEX shoppingItem_name ON shoppingItemEntity(itemName);
+CREATE INDEX item_name ON ItemEntity(itemName);
 
 insertItem:
-INSERT INTO shoppingItemEntity(itemName, list_id) VALUES (?, ?);
+INSERT INTO ItemEntity(itemName, list_id) VALUES (?, ?);
 
 insertItemWithId:
-INSERT INTO shoppingItemEntity(item_id, itemName, list_id) VALUES (?, ?, ?);
+INSERT INTO ItemEntity(item_id, itemName, list_id) VALUES (?, ?, ?);
 
 getItemsFromList:
-SELECT * FROM shoppingItemEntity WHERE list_id = ?;
+SELECT * FROM ItemEntity WHERE list_id = ?;

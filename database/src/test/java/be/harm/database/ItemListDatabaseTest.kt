@@ -1,15 +1,15 @@
 package be.harm.database
 
-import be.harm.database.mappers.ShoppingItemMapper
-import be.harm.database.mappers.ShoppingListMapper
-import be.harm.domain.ShoppingItem
-import be.harm.domain.ShoppingList
+import be.harm.database.mappers.ItemMapper
+import be.harm.database.mappers.ListMapper
+import be.harm.domain.Item
+import be.harm.domain.ItemList
 import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 
-class ShoppingListDatabaseTest {
+class ItemListDatabaseTest {
 
     private val inMemoryDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).apply {
         Database.Schema.create(this)
@@ -17,7 +17,7 @@ class ShoppingListDatabaseTest {
 
     private val queries = Database(inMemoryDriver).shoppingListsQueries
 
-    private val subject = ShoppingListDatabase(queries, ShoppingListMapper(), ShoppingItemMapper())
+    private val subject = ListDatabase(queries, ListMapper(), ItemMapper())
 
     @Test
     fun shoppingListDatabase_getShoppingLists_returnsDomainListWithItems() {
@@ -42,7 +42,7 @@ class ShoppingListDatabaseTest {
     @Test
     fun shoppingListDatabase_addList_adds() {
         // Arrange
-        val newList = ShoppingList(name = "TestList")
+        val newList = ItemList(name = "TestList")
 
         // Act
         subject.addList(newList)
@@ -57,8 +57,8 @@ class ShoppingListDatabaseTest {
     @Test
     fun shoppingListDatabase_addItem_linkedToList() {
         // Arrange
-        val list = ShoppingList(id = 10, name = "TestList")
-        val item = ShoppingItem(name = "TestItem")
+        val list = ItemList(id = 10, name = "TestList")
+        val item = Item(name = "TestItem")
         queries.insertListWithId(list.id, list.name)
 
         // Act
