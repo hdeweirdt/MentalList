@@ -5,6 +5,7 @@ object BuildPlugins {
     object Versions {
         const val gradleVersion = "3.5.2"
         const val ktlintVersion = "9.1.1"
+        const val detektVersion = "1.2.2"
     }
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.gradleVersion}"
@@ -17,6 +18,7 @@ object BuildPlugins {
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
 
     const val ktLint = "org.jlleitschuh.gradle.ktlint"
+    const val detekt = "io.gitlab.arturbosch.detekt"
 }
 
 object AndroidSdk {

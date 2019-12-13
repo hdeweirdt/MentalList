@@ -21,10 +21,12 @@ allprojects {
         jcenter()
     }
     apply(plugin = BuildPlugins.ktLint)
+    apply(plugin = BuildPlugins.detekt)
 }
 
 plugins {
     id(BuildPlugins.ktLint) version BuildPlugins.Versions.ktlintVersion
+    id(BuildPlugins.detekt) version BuildPlugins.Versions.detektVersion
 }
 
 tasks.register("clean", Delete::class) {
