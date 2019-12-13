@@ -4,7 +4,7 @@ import be.harm.database.ShoppingListEntity
 import be.harm.domain.ShoppingList
 
 class ShoppingListMapper {
-    fun toShoppingList(shoppingListEntity: ShoppingListEntity) : ShoppingList {
+    fun toShoppingList(shoppingListEntity: ShoppingListEntity): ShoppingList {
         return ShoppingList(shoppingListEntity.listName)
     }
 }

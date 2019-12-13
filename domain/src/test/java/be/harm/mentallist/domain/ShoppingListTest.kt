@@ -3,7 +3,9 @@ package be.harm.mentallist.domain
 import be.harm.domain.ShoppingItem
 import be.harm.domain.ShoppingList
 import io.mockk.mockk
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -81,7 +83,7 @@ class ShoppingListTest {
         // Act
         subject.removeItemAtPosition(1)
 
-        //Assert
+        // Assert
         assertEquals(2, subject.itemList.size)
         assertFalse(subject.itemList.contains(secondItem))
     }
@@ -152,7 +154,6 @@ class ShoppingListTest {
         // Assert
         assertEquals(3, subject.itemList.size)
     }
-
 
     private fun fillListWithItems(numberOfItems: Int) {
         repeat(numberOfItems) {

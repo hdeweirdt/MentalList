@@ -4,6 +4,7 @@ object BuildPlugins {
 
     object Versions {
         const val gradleVersion = "3.5.2"
+        const val ktlintVersion = "9.1.1"
     }
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.gradleVersion}"
@@ -15,6 +16,7 @@ object BuildPlugins {
     const val library = "java-library"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
 
+    const val ktLint = "org.jlleitschuh.gradle.ktlint"
 }
 
 object AndroidSdk {

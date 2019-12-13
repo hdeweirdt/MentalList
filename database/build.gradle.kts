@@ -4,7 +4,7 @@ plugins {
     id(DatabaseDependencies.sqldelight)
 }
 
-//TODO: find a way to make this a non-android module (inject android driver)
+// TODO: find a way to make this a non-android module (inject android driver)
 android {
     compileSdkVersion(AndroidSdk.compile)
     defaultConfig {

@@ -19,8 +19,12 @@ allprojects {
     repositories {
         google()
         jcenter()
-
     }
+    apply(plugin = BuildPlugins.ktLint)
+}
+
+plugins {
+    id(BuildPlugins.ktLint) version BuildPlugins.Versions.ktlintVersion
 }
 
 tasks.register("clean", Delete::class) {

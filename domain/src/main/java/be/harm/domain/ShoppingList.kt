@@ -22,5 +22,4 @@ class ShoppingList(
     fun remove(shoppingItem: ShoppingItem) {
         _itemList.remove(shoppingItem)
     }
-
 }
