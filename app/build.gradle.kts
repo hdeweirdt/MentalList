@@ -23,6 +23,9 @@ android {
             )
         }
     }
+    dataBinding {
+        isEnabled = true
+    }
 }
 
 dependencies {
@@ -34,6 +37,12 @@ dependencies {
     implementation(CommonDependencies.kotlinStdLib)
     implementation(AndroidDependencies.appCompat)
     implementation(AndroidDependencies.core)
+
+    implementation(UiDependencies.constraintLayout)
+    implementation(UiDependencies.materialDesign)
+    implementation(UiDependencies.recyclerview)
+    implementation(UiDependencies.navigation_fragment)
+    implementation(UiDependencies.navigation_ui)
 
     testImplementation(TestDependencies.junit)
     testImplementation(TestDependencies.mockk)

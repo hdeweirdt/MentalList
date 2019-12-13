@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MentalList</string>
+    <string name="bottomNav_todo">Todo</string>
+    <string name="bottomNav_shopping">Shopping</string>
 </resources>

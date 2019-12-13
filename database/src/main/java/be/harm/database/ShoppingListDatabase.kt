@@ -34,5 +34,4 @@ class ShoppingListDatabase(
     override fun addItem(shoppingItem: ShoppingItem, shoppingList: ShoppingList) {
         shoppingListsQueries.insertItem(shoppingItem.name, shoppingList.id)
     }
-
 }

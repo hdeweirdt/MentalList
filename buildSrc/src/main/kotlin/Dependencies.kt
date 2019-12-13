@@ -22,7 +22,7 @@ object BuildPlugins {
 }
 
 object AndroidSdk {
-    const val min = 19
+    const val min = 21
     const val compile = 29
     const val target = compile
 }
@@ -57,6 +57,26 @@ object DatabaseDependencies {
     const val sqldelightJdbcDriver =
         "com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelightVersion}"
 
+}
+
+object UiDependencies {
+    private object Versions {
+        const val constraintLayoutVersion = "1.1.3"
+        const val materialDesignVersion = "1.0.0"
+        const val recyclerViewVersion = "1.1.0"
+        const val navigationVersion = "2.1.0"
+    }
+
+    const val constraintLayout =
+        "androidx.constraintlayout:constraintlayout:${Versions.constraintLayoutVersion}"
+    const val materialDesign =
+        "com.google.android.material:material:${Versions.materialDesignVersion}"
+    const val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerViewVersion}"
+
+    const val navigation_fragment =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationVersion}"
+    const val navigation_ui =
+        "androidx.navigation:navigation-ui-ktx:${Versions.navigationVersion}"
 }
 
 object TestDependencies {

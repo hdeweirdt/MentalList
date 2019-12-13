@@ -71,4 +71,3 @@ class ShoppingListDatabaseTest {
         assertEquals(item.name, itemInDatabase.itemName)
     }
 }
-
