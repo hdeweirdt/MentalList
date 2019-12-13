@@ -4,7 +4,11 @@ import be.harm.database.ShoppingListEntity
 import be.harm.domain.ShoppingList
 
 class ShoppingListMapper {
+
     fun toShoppingList(shoppingListEntity: ShoppingListEntity): ShoppingList {
-        return ShoppingList(shoppingListEntity.listName)
+        return ShoppingList(
+            id = shoppingListEntity.list_id,
+            name = shoppingListEntity.listName
+        )
     }
 }

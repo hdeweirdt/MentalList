@@ -1,3 +1,6 @@
 package be.harm.domain
 
-abstract class Item(val id: Long, val name: String)
+abstract class Item(
+    val id: Long = 0L,
+    val name: String
+)

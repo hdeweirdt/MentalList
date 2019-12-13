@@ -1,7 +1,7 @@
 package be.harm.domain
 
 class ShoppingList(
-    val id: Long,
+    val id: Long = 0L,
     var name: String
 ) {
     private val _itemList = mutableListOf<ShoppingItem>()

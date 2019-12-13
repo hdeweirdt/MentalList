@@ -23,4 +23,11 @@ class ShoppingListDatabase(
                 shoppingList
             }
     }
+
+    override fun addList(newList: ShoppingList) {
+        shoppingListsQueries.insertList(
+            listName = newList.name
+        )
+    }
+
 }

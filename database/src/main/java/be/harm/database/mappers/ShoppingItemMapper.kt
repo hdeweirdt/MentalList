@@ -5,6 +5,9 @@ import be.harm.domain.ShoppingItem
 
 class ShoppingItemMapper {
     fun toShoppingItem(shoppingItemEntity: ShoppingItemEntity): ShoppingItem {
-        return ShoppingItem(shoppingItemEntity.itemName)
+        return ShoppingItem(
+            id = shoppingItemEntity.item_id,
+            name = shoppingItemEntity.itemName
+        )
     }
 }
