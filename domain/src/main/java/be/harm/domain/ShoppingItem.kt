@@ -1,3 +1,3 @@
 package be.harm.domain
 
-class ShoppingItem(name: String) : Item(name)
+class ShoppingItem(id: Long, name: String) : Item(id, name)
