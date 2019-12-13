@@ -1,13 +1,13 @@
 -- SHOPPING LIST
 CREATE TABLE shoppingListEntity(
-    list_id INTEGER PRIMARY KEY NOT NULL,
+    list_id INTEGER PRIMARY KEY,
     listName TEXT NOT NULL
 );
 
 CREATE INDEX shoppingList_name ON shoppingListEntity(listName);
 
 insertList:
-INSERT INTO shoppingListEntity(list_id, listName) VALUES (?,?);
+INSERT INTO shoppingListEntity(listName) VALUES (?);
 
 getLists:
 SELECT * FROM shoppingListEntity;
@@ -17,7 +17,7 @@ SELECT * FROM shoppingListEntity WHERE list_id = ? LIMIT 1;
 
 -- SHOPPING ITEM
 CREATE TABLE shoppingItemEntity(
-    item_id INTEGER PRIMARY KEY NOT NULL,
+    item_id INTEGER PRIMARY KEY,
     itemName TEXT NOT NULL,
     list_id INTEGER NOT NULL,
     FOREIGN KEY(list_id)
@@ -27,7 +27,7 @@ CREATE TABLE shoppingItemEntity(
 CREATE INDEX shoppingItem_name ON shoppingItemEntity(itemName);
 
 insertItem:
-INSERT INTO shoppingItemEntity(item_id, itemName, list_id) VALUES (?, ?, ?);
+INSERT INTO shoppingItemEntity(itemName, list_id) VALUES (?, ?);
 
 getItemsFromList:
 SELECT * FROM shoppingItemEntity WHERE list_id = ?;
