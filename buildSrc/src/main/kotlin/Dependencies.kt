@@ -46,7 +46,13 @@ object DatabaseDependencies {
 
     const val sqldelight = "com.squareup.sqldelight"
     const val sqldelightGradlePlugin =
-            "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelightVersion}"
+        "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelightVersion}"
+    const val sqldelightAndroidDriver =
+        "com.squareup.sqldelight:android-driver:${Versions.sqlDelightVersion}"
+    // Used for unit testing the database
+    const val sqldelightJdbcDriver =
+        "com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelightVersion}"
+
 }
 
 object TestDependencies {

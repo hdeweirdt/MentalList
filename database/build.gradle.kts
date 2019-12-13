@@ -4,6 +4,7 @@ plugins {
     id(DatabaseDependencies.sqldelight)
 }
 
+//TODO: find a way to make this a non-android module (inject android driver)
 android {
     compileSdkVersion(AndroidSdk.compile)
     defaultConfig {
@@ -31,6 +32,9 @@ dependencies {
 
     implementation(CommonDependencies.kotlinStdLib)
 
+    implementation(DatabaseDependencies.sqldelightAndroidDriver)
+
     testImplementation(TestDependencies.junit)
+    testImplementation(DatabaseDependencies.sqldelightJdbcDriver)
     testImplementation(TestDependencies.mockk)
 }
