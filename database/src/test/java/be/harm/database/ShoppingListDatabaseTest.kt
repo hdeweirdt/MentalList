@@ -2,6 +2,7 @@ package be.harm.database
 
 import be.harm.database.mappers.ShoppingItemMapper
 import be.harm.database.mappers.ShoppingListMapper
+import be.harm.domain.ShoppingItem
 import be.harm.domain.ShoppingList
 import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import org.junit.Assert.assertEquals
@@ -52,4 +53,22 @@ class ShoppingListDatabaseTest {
 
         assertEquals(newList.name, listsInDatabase.first().listName)
     }
+
+    @Test
+    fun shoppingListDatabase_addItem_linkedToList() {
+        // Arrange
+        val list = ShoppingList(id = 10, name = "TestList")
+        val item = ShoppingItem(name = "TestItem")
+        queries.insertListWithId(list.id, list.name)
+
+        // Act
+        subject.addItem(item, list)
+
+        // Assert
+        val itemsInList = queries.getItemsFromList(list.id).executeAsList()
+        assertEquals(1, itemsInList.size)
+        val itemInDatabase = itemsInList.first()
+        assertEquals(item.name, itemInDatabase.itemName)
+    }
 }
+

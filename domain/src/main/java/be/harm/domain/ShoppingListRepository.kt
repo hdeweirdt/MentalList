@@ -5,4 +5,5 @@ interface ShoppingListRepository {
 
     fun addList(newList: ShoppingList)
 
+    fun addItem(shoppingItem: ShoppingItem, shoppingList: ShoppingList)
 }
