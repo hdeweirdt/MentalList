@@ -85,10 +85,13 @@ object TestDependencies {
         const val androidJunit = "1.1.1"
         const val espresso = "3.2.0"
         const val mockk = "1.9.2"
+        const val androidArchCoreTestVersion = "2.0.0"
     }
 
     const val junit = "junit:junit:${Versions.junit}"
     const val android_junit = "androidx.test.ext:junit:${Versions.androidJunit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
+    const val androidArchCoreTest =
+        "androidx.arch.core:core-testing:${Versions.androidArchCoreTestVersion}"
 }
