@@ -7,6 +7,7 @@ import be.harm.domain.ItemList
 import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ItemListDatabaseTest {
@@ -20,7 +21,28 @@ class ItemListDatabaseTest {
     private val subject = ListDatabase(queries, ListMapper(), ItemMapper())
 
     @Test
-    fun shoppingListDatabase_getShoppingLists_returnsDomainListWithItems() {
+    fun shoppingListDatabase_getList_returnsDomainListWithItems() {
+        // Arrange
+        queries.insertListWithId(list_id = 0, listName = "List 1")
+        queries.insertItemWithId(item_id = 0, itemName = "Item 11", list_id = 0)
+        queries.insertItemWithId(item_id = 1, itemName = "Item 12", list_id = 0)
+
+        queries.insertListWithId(list_id = 1, listName = "List 2")
+        queries.insertItemWithId(item_id = 2, itemName = "Item 21", list_id = 1)
+
+        // Act
+        val foundList = subject.getList(0)
+
+        // Assert
+        assertNotNull(foundList)
+        assertEquals(2, foundList.itemList.size)
+        assertTrue(foundList.itemList.any { item: Item -> item.id == 0L })
+        assertTrue(foundList.itemList.any { item: Item -> item.id == 1L })
+    }
+
+
+    @Test
+    fun shoppingListDatabase_getShoppingLists_returnsDomainListsWithItems() {
         // Arrange
         queries.insertListWithId(list_id = 0, listName = "List 1")
         queries.insertItemWithId(item_id = 0, itemName = "Item 11", list_id = 0)

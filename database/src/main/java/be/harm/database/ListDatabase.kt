@@ -12,6 +12,15 @@ class ListDatabase(
     private val itemMapper: ItemMapper
 ) : ListRepository {
 
+    override fun getList(listId: Long): ItemList? {
+        val result = shoppingListsQueries.getList(listId).executeAsOneOrNull()
+        return if (result == null) {
+            null
+        } else {
+            listMapper.toShoppingList(result)
+        }
+    }
+
     override fun getAll(): List<ItemList> {
         return shoppingListsQueries.getLists().executeAsList()
             .map { shoppingEntity ->
