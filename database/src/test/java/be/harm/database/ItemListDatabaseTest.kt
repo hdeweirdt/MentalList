@@ -35,11 +35,10 @@ class ItemListDatabaseTest {
 
         // Assert
         assertNotNull(foundList)
-        assertEquals(2, foundList.itemList.size)
+        assertEquals(2, foundList!!.itemList.size)
         assertTrue(foundList.itemList.any { item: Item -> item.id == 0L })
         assertTrue(foundList.itemList.any { item: Item -> item.id == 1L })
     }
-
 
     @Test
     fun shoppingListDatabase_getShoppingLists_returnsDomainListsWithItems() {

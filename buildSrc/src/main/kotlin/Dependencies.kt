@@ -37,10 +37,13 @@ object AndroidDependencies {
     private object Versions {
         const val appcompat = "1.1.0"
         const val core = "1.1.0"
+        const val lifeCycleExtensions = "2.1.0"
     }
 
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val core = "androidx.core:core-ktx:${Versions.core}"
+    const val lifecycleExtensions =
+        "androidx.lifecycle:lifecycle-extensions:${Versions.lifeCycleExtensions}"
 }
 
 object DatabaseDependencies {

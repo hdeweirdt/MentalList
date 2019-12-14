@@ -1,6 +1,6 @@
 package be.harm.domain
 
-class ItemList(
+open class ItemList(
     var name: String,
     val id: Long = 0L
 ) {

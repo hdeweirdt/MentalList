@@ -32,8 +32,6 @@ dependencies {
 
     implementation(CommonDependencies.kotlinStdLib)
 
-    implementation(DatabaseDependencies.sqldelightAndroidDriver)
-
     testImplementation(TestDependencies.junit)
     testImplementation(DatabaseDependencies.sqldelightJdbcDriver)
     testImplementation(TestDependencies.mockk)

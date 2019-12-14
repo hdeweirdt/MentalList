@@ -21,5 +21,4 @@ class ListViewModel(
         list = listRepository.getList(listId)
         _items.value = list?.itemList
     }
-
 }
