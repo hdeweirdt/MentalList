@@ -9,7 +9,7 @@ import be.harm.domain.ListRepository
 
 class ListViewModel(
     listId: Long,
-    listRepository: ListRepository
+    private val listRepository: ListRepository
 ) : ViewModel() {
 
     private var list: ItemList? = null
@@ -20,5 +20,10 @@ class ListViewModel(
     init {
         list = listRepository.getList(listId)
         _items.value = list?.itemList
+    }
+
+    fun addItemWithName(itemName: String) {
+        val newItem = Item(itemName)
+        listRepository.addItem(newItem, list!!)
     }
 }

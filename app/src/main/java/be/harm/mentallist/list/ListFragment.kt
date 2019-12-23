@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import be.harm.domain.SHOPPING_LIST_ID
 import be.harm.mentallist.Injector
 import be.harm.mentallist.databinding.FragmentListBinding
+
+private const val SHOPPING_LIST_ID = 0L
+private const val TODO_LIST_ID = 1L
 
 class ListFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
@@ -52,5 +54,12 @@ class ListFragment : Fragment() {
         listViewModel.items.observe(this, Observer { itemList ->
             (binding.rvItemList.adapter as ItemListAdapter).submitList(itemList)
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.fabItemListAddItem.setOnClickListener {
+            listViewModel.addItemWithName("testNaam")
+        }
     }
 }
