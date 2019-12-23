@@ -13,7 +13,7 @@ class Injector(private val context: Context) {
 
     fun provideListDatabase(): ListDatabase {
         return ListDatabase(
-            shoppingListsQueries = provideQueries(),
+            listQueries = provideQueries(),
             itemMapper = provideItemMapper(),
             listMapper = provideListMapper()
         )

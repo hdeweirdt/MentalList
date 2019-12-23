@@ -7,13 +7,13 @@ import be.harm.domain.ItemList
 import be.harm.domain.ListRepository
 
 class ListDatabase(
-    private val shoppingListsQueries: ShoppingListsQueries,
+    private val listQueries: ShoppingListsQueries,
     private val listMapper: ListMapper,
     private val itemMapper: ItemMapper
 ) : ListRepository {
 
     override fun getList(listId: Long): ItemList? {
-        val result = shoppingListsQueries.getList(listId).executeAsOneOrNull()
+        val result = listQueries.getList(listId).executeAsOneOrNull()
         return if (result == null) {
             null
         } else {
@@ -22,25 +22,25 @@ class ListDatabase(
     }
 
     override fun getAll(): List<ItemList> {
-        return shoppingListsQueries.getLists().executeAsList()
-            .map { shoppingEntity ->
-                val shoppingList = listMapper.toShoppingList(shoppingEntity)
+        return listQueries.getLists().executeAsList()
+            .map { listEntity ->
+                val list = listMapper.toShoppingList(listEntity)
                 val itemEntities =
-                    shoppingListsQueries.getItemsFromList(shoppingEntity.list_id).executeAsList()
+                    listQueries.getItemsFromList(listEntity.list_id).executeAsList()
                 itemEntities.forEach { itemEntity ->
-                    shoppingList.add(itemMapper.toShoppingItem(itemEntity))
+                    list.add(itemMapper.toListItem(itemEntity))
                 }
-                shoppingList
+                list
             }
     }
 
     override fun addList(newList: ItemList) {
-        shoppingListsQueries.insertList(
+        listQueries.insertList(
             listName = newList.name
         )
     }
 
     override fun addItem(item: Item, itemList: ItemList) {
-        shoppingListsQueries.insertItem(item.name, itemList.id)
+        listQueries.insertItem(item.name, itemList.id)
     }
 }
