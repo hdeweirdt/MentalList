@@ -36,3 +36,7 @@ INSERT INTO ItemEntity(item_id, itemName, list_id) VALUES (?, ?, ?);
 
 getItemsFromList:
 SELECT * FROM ItemEntity WHERE list_id = ?;
+
+--  DEFAULT LISTS
+INSERT OR IGNORE INTO listEntity(list_id, listName) VALUES(0, "Shopping");
+INSERT OR IGNORE INTO listEntity(list_id, listName) VALUES(1, "Todo");
