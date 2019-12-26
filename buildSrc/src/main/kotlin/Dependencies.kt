@@ -28,8 +28,6 @@ object AndroidSdk {
 }
 
 object CommonDependencies {
-    private object Versions
-
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 }
 
@@ -37,18 +35,22 @@ object AndroidDependencies {
     private object Versions {
         const val appcompat = "1.1.0"
         const val core = "1.1.0"
-        const val lifeCycleExtensions = "2.1.0"
+        const val lifeCycleExtensions = "2.2.0-rc03"
     }
 
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val core = "androidx.core:core-ktx:${Versions.core}"
     const val lifecycleExtensions =
         "androidx.lifecycle:lifecycle-extensions:${Versions.lifeCycleExtensions}"
+    const val lifecycleLiveData =
+        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifeCycleExtensions}"
+    const val lifecycleViewModel =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycleExtensions}"
 }
 
 object DatabaseDependencies {
     private object Versions {
-        const val sqlDelightVersion = "1.2.0"
+        const val sqlDelightVersion = "1.2.1"
     }
 
     const val sqldelight = "com.squareup.sqldelight"
@@ -56,6 +58,8 @@ object DatabaseDependencies {
         "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelightVersion}"
     const val sqldelightAndroidDriver =
         "com.squareup.sqldelight:android-driver:${Versions.sqlDelightVersion}"
+    const val sqldelightCorutines =
+        "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelightVersion}"
     // Used for unit testing the database
     const val sqldelightJdbcDriver =
         "com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelightVersion}"
@@ -65,7 +69,7 @@ object DatabaseDependencies {
 object UiDependencies {
     private object Versions {
         const val constraintLayoutVersion = "1.1.3"
-        const val materialDesignVersion = "1.0.0"
+        const val materialDesignVersion = "1.1.0-alpha02" // Alpha for MaterialAlertDialog
         const val recyclerViewVersion = "1.1.0"
         const val navigationVersion = "2.1.0"
     }

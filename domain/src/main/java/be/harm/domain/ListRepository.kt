@@ -1,11 +1,11 @@
 package be.harm.domain
 
 interface ListRepository {
-    fun getList(listId: Long): ItemList?
+    suspend fun getList(listId: Long): ItemList?
 
-    fun getAll(): List<ItemList>
+    suspend fun getAll(): List<ItemList>
 
-    fun addList(newList: ItemList)
+    suspend fun addList(newList: ItemList)
 
-    fun addItem(item: Item, itemList: ItemList)
+    suspend fun addItem(item: Item, itemList: ItemList)
 }

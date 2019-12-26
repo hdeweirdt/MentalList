@@ -1,38 +1,31 @@
 plugins {
-    id(BuildPlugins.androidLibrary)
-    id(BuildPlugins.kotlinAndroid)
+    id(BuildPlugins.kotlin)
+    id(BuildPlugins.library)
     id(DatabaseDependencies.sqldelight)
 }
 
-// TODO: find a way to make this a non-android module (inject android driver)
-android {
-    compileSdkVersion(AndroidSdk.compile)
-    defaultConfig {
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
+sqldelight {
+    database("ListDatabase") {
+        packageName = "be.harm.mentallist"
     }
 }
 
 dependencies {
-    implementation(fileTree("libs"))
-
     implementation(project(":domain"))
 
     implementation(CommonDependencies.kotlinStdLib)
 
     testImplementation(TestDependencies.junit)
     testImplementation(DatabaseDependencies.sqldelightJdbcDriver)
+    testImplementation(DatabaseDependencies.sqldelightCorutines)
     testImplementation(TestDependencies.mockk)
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }

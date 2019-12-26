@@ -1,4 +1,4 @@
-package be.harm.database
+package be.harm.mentallist
 
 import org.junit.Assert.assertTrue
 import org.junit.Test

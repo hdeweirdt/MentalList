@@ -1,7 +1,7 @@
-package be.harm.database.mappers
+package be.harm.mentallist.mappers
 
-import be.harm.database.ItemEntity
 import be.harm.domain.Item
+import be.harm.mentallist.ItemEntity
 
 class ItemMapper {
     fun toListItem(itemEntity: ItemEntity): Item {

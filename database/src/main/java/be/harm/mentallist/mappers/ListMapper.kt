@@ -1,7 +1,7 @@
-package be.harm.database.mappers
+package be.harm.mentallist.mappers
 
-import be.harm.database.ListEntity
 import be.harm.domain.ItemList
+import be.harm.mentallist.ListEntity
 
 class ListMapper {
 

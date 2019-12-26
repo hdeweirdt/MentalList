@@ -1,12 +1,12 @@
-package be.harm.database
+package be.harm.mentallist
 
 import com.squareup.sqldelight.db.SqlDriver
 
-object Schema : SqlDriver.Schema by Database.Schema {
+object Schema : SqlDriver.Schema by ListDatabase.Schema {
     override fun create(driver: SqlDriver) {
-        Database.Schema.create(driver)
+        ListDatabase.Schema.create(driver)
 
-        Database(driver).apply {
+        ListDatabase(driver).apply {
             itemListQueries.insertListWithId(0, "Shopping")
             itemListQueries.insertListWithId(1, "Todo")
         }

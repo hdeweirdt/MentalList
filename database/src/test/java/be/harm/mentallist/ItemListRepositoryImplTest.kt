@@ -1,9 +1,10 @@
-package be.harm.database
+package be.harm.mentallist
 
-import be.harm.database.mappers.ItemMapper
-import be.harm.database.mappers.ListMapper
 import be.harm.domain.Item
 import be.harm.domain.ItemList
+import be.harm.mentallist.mappers.ItemMapper
+import be.harm.mentallist.mappers.ListMapper
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -31,14 +32,16 @@ class ItemListRepositoryImplTest : DatabaseTest() {
         queries.insertListWithId(list_id = 200, listName = "List 2")
         queries.insertItemWithId(item_id = 2, itemName = "Item 21", list_id = 200)
 
-        // Act
-        val foundList = subject.getList(100)
+        runBlocking {
+            // Act
+            val foundList = subject.getList(100)
 
-        // Assert
-        assertNotNull(foundList)
-        assertEquals(2, foundList!!.itemList.size)
-        assertTrue(foundList.itemList.any { item: Item -> item.id == 0L })
-        assertTrue(foundList.itemList.any { item: Item -> item.id == 1L })
+            // Assert
+            assertNotNull(foundList)
+            assertEquals(2, foundList!!.itemList.size)
+            assertTrue(foundList.itemList.any { item: Item -> item.id == 0L })
+            assertTrue(foundList.itemList.any { item: Item -> item.id == 1L })
+        }
     }
 
     @Test
@@ -51,14 +54,16 @@ class ItemListRepositoryImplTest : DatabaseTest() {
         queries.insertListWithId(list_id = 200, listName = "List 2")
         queries.insertItemWithId(item_id = 2, itemName = "Item 21", list_id = 200)
 
-        // Act
-        val lists = subject.getAll()
+        runBlocking {
+            // Act
+            val lists = subject.getAll()
 
-        // Assert
-        val firstList = lists.find { it.id == 200L }
-        val secondList = lists.find { it.id == 100L }
-        assertNotNull(firstList)
-        assertNotNull(secondList)
+            // Assert
+            val firstList = lists.find { it.id == 200L }
+            val secondList = lists.find { it.id == 100L }
+            assertNotNull(firstList)
+            assertNotNull(secondList)
+        }
     }
 
     @Test
@@ -67,7 +72,9 @@ class ItemListRepositoryImplTest : DatabaseTest() {
         val newList = ItemList(name = "TestList")
 
         // Act
-        subject.addList(newList)
+        runBlocking {
+            subject.addList(newList)
+        }
 
         // Assert
         val listsInDatabase = queries.getLists().executeAsList()
@@ -83,7 +90,9 @@ class ItemListRepositoryImplTest : DatabaseTest() {
         queries.insertListWithId(list.id, list.name)
 
         // Act
-        subject.addItem(item, list)
+        runBlocking {
+            subject.addItem(item, list)
+        }
 
         // Assert
         val itemsInList = queries.getItemsFromList(list.id).executeAsList()

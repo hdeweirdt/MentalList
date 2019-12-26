@@ -2,12 +2,9 @@ package be.harm.mentallist
 
 import android.content.Context
 import be.harm.database.Database
-import be.harm.database.ListDatabase
-import be.harm.database.ListRepositoryImpl
-import be.harm.database.Schema
-import be.harm.database.mappers.ItemMapper
-import be.harm.database.mappers.ListMapper
 import be.harm.domain.ListRepository
+import be.harm.mentallist.mappers.ItemMapper
+import be.harm.mentallist.mappers.ListMapper
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 

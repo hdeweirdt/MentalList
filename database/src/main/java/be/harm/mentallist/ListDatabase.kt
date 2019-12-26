@@ -1,16 +1,16 @@
-package be.harm.database
+package be.harm.mentallist
 
 import com.squareup.sqldelight.db.SqlDriver
 
-object ListDatabase {
+object ListDb {
     private var driver: SqlDriver? = null
-    private var db: Database? = null
+    private var db: ListDatabase? = null
 
     val ready: Boolean
         get() = driver != null
 
     fun setupDatabase(driver: SqlDriver) {
-        db = Database(driver)
+        db = ListDatabase(driver)
         this.driver = driver
     }
 
@@ -20,6 +20,6 @@ object ListDatabase {
         driver = null
     }
 
-    val instance: Database
+    val instance: ListDatabase
         get() = db!!
 }

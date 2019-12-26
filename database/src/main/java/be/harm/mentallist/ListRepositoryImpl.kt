@@ -1,20 +1,21 @@
-package be.harm.database
+package be.harm.mentallist
 
-import be.harm.database.mappers.ItemMapper
-import be.harm.database.mappers.ListMapper
 import be.harm.domain.Item
 import be.harm.domain.ItemList
 import be.harm.domain.ListRepository
+import be.harm.mentallist.mappers.ItemMapper
+import be.harm.mentallist.mappers.ListMapper
 
 class ListRepositoryImpl(
-    listDatabase: Database,
+    listDatabase: ListDatabase,
     private val listMapper: ListMapper,
     private val itemMapper: ItemMapper
 ) : ListRepository {
 
     private val listQueries = listDatabase.itemListQueries
 
-    override fun getList(listId: Long): ItemList? {
+    override suspend fun getList(listId: Long): ItemList? {
+
         val listEntity = listQueries.getList(listId).executeAsOneOrNull()
         return if (listEntity == null) {
             null
@@ -33,7 +34,7 @@ class ListRepositoryImpl(
         }
     }
 
-    override fun getAll(): List<ItemList> {
+    override suspend fun getAll(): List<ItemList> {
         return listQueries.getLists().executeAsList()
             .map { listEntity ->
                 val list = listMapper.toShoppingList(listEntity)
@@ -42,13 +43,13 @@ class ListRepositoryImpl(
             }
     }
 
-    override fun addList(newList: ItemList) {
+    override suspend fun addList(newList: ItemList) {
         listQueries.insertList(
             listName = newList.name
         )
     }
 
-    override fun addItem(item: Item, itemList: ItemList) {
+    override suspend fun addItem(item: Item, itemList: ItemList) {
         listQueries.insertItem(item.name, itemList.id)
     }
 }

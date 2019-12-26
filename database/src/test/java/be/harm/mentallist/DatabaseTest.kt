@@ -1,4 +1,4 @@
-package be.harm.database
+package be.harm.mentallist
 
 import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import org.junit.After
@@ -10,15 +10,15 @@ open class DatabaseTest {
     fun setUpDatabase() {
         val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
         Schema.create(driver)
-        ListDatabase.setupDatabase(driver)
+        ListDb.setupDatabase(driver)
     }
 
     @After
     fun tearDownDatabase() {
-        ListDatabase.clearDatabase()
+        ListDb.clearDatabase()
     }
 
-    fun getDatabase(): Database {
-        return ListDatabase.instance
+    fun getDatabase(): ListDatabase {
+        return ListDb.instance
     }
 }
