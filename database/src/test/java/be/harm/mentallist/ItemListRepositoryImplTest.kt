@@ -4,7 +4,7 @@ import be.harm.domain.Item
 import be.harm.domain.ItemList
 import be.harm.mentallist.mappers.ItemMapper
 import be.harm.mentallist.mappers.ListMapper
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -32,7 +32,8 @@ class ItemListRepositoryImplTest : DatabaseTest() {
         queries.insertListWithId(list_id = 200, listName = "List 2")
         queries.insertItemWithId(item_id = 2, itemName = "Item 21", list_id = 200)
 
-        runBlocking {
+
+        runBlockingTest {
             // Act
             val foundList = subject.getList(100)
 
@@ -54,7 +55,7 @@ class ItemListRepositoryImplTest : DatabaseTest() {
         queries.insertListWithId(list_id = 200, listName = "List 2")
         queries.insertItemWithId(item_id = 2, itemName = "Item 21", list_id = 200)
 
-        runBlocking {
+        runBlockingTest {
             // Act
             val lists = subject.getAll()
 
@@ -72,7 +73,7 @@ class ItemListRepositoryImplTest : DatabaseTest() {
         val newList = ItemList(name = "TestList")
 
         // Act
-        runBlocking {
+        runBlockingTest {
             subject.addList(newList)
         }
 
@@ -90,7 +91,7 @@ class ItemListRepositoryImplTest : DatabaseTest() {
         queries.insertListWithId(list.id, list.name)
 
         // Act
-        runBlocking {
+        runBlockingTest {
             subject.addItem(item, list)
         }
 

@@ -14,15 +14,14 @@ class ListRepositoryImpl(
 
     private val listQueries = listDatabase.itemListQueries
 
-    override suspend fun getList(listId: Long): ItemList? {
-
-        val listEntity = listQueries.getList(listId).executeAsOneOrNull()
-        return if (listEntity == null) {
-            null
-        } else {
+    override suspend fun getList(listId: Long): ItemList {
+        try {
+            val listEntity = listQueries.getList(listId).executeAsOne()
             val list = listMapper.toShoppingList(listEntity)
             addItemsToList(list)
             return list
+        } catch (e: NullPointerException) {
+            throw NoSuchElementException("No list found with id $listId")
         }
     }
 

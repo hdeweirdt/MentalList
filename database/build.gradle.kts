@@ -14,11 +14,12 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(CommonDependencies.kotlinStdLib)
+    implementation(CommonDependencies.coroutines)
 
     testImplementation(TestDependencies.junit)
     testImplementation(DatabaseDependencies.sqldelightJdbcDriver)
-    testImplementation(DatabaseDependencies.sqldelightCorutines)
     testImplementation(TestDependencies.mockk)
+    testImplementation(CommonDependencies.coroutinesTest)
 }
 
 repositories {

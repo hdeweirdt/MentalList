@@ -28,7 +28,15 @@ object AndroidSdk {
 }
 
 object CommonDependencies {
+    private object Versions {
+        const val coroutinesVersion = "1.3.3"
+    }
+
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    const val coroutines =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesVersion}"
+    const val coroutinesTest =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesVersion}"
 }
 
 object AndroidDependencies {
@@ -58,8 +66,6 @@ object DatabaseDependencies {
         "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelightVersion}"
     const val sqldelightAndroidDriver =
         "com.squareup.sqldelight:android-driver:${Versions.sqlDelightVersion}"
-    const val sqldelightCorutines =
-        "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelightVersion}"
     // Used for unit testing the database
     const val sqldelightJdbcDriver =
         "com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelightVersion}"
