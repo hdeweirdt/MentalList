@@ -1,7 +1,6 @@
 package be.harm.mentallist
 
 import android.content.Context
-import be.harm.database.Database
 import be.harm.domain.ListRepository
 import be.harm.mentallist.mappers.ItemMapper
 import be.harm.mentallist.mappers.ListMapper
@@ -18,12 +17,12 @@ class Injector(private val context: Context) {
         )
     }
 
-    private fun provideListDatabase(): Database {
-        if (!ListDatabase.ready) {
+    private fun provideListDatabase(): ListDatabase {
+        if (!ListDb.ready) {
             val androidDriver = provideDatabaseDriver()
-            ListDatabase.setupDatabase(androidDriver)
+            ListDb.setupDatabase(androidDriver)
         }
-        return ListDatabase.instance
+        return ListDb.instance
     }
 
     private fun provideDatabaseDriver(): SqlDriver {
