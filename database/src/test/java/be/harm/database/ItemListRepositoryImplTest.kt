@@ -4,34 +4,35 @@ import be.harm.database.mappers.ItemMapper
 import be.harm.database.mappers.ListMapper
 import be.harm.domain.Item
 import be.harm.domain.ItemList
-import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 
-class ItemListDatabaseTest {
+class ItemListRepositoryImplTest : DatabaseTest() {
 
-    private val inMemoryDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).apply {
-        Database.Schema.create(this)
+    private lateinit var subject: ListRepositoryImpl
+
+    private val queries by lazy { getDatabase().itemListQueries }
+
+    @Before
+    fun setUp() {
+        subject = ListRepositoryImpl(getDatabase(), ListMapper(), ItemMapper())
     }
-
-    private val queries = Database(inMemoryDriver).shoppingListsQueries
-
-    private val subject = ListDatabase(queries, ListMapper(), ItemMapper())
 
     @Test
     fun shoppingListDatabase_getList_returnsDomainListWithItems() {
         // Arrange
-        queries.insertListWithId(list_id = 0, listName = "List 1")
-        queries.insertItemWithId(item_id = 0, itemName = "Item 11", list_id = 0)
-        queries.insertItemWithId(item_id = 1, itemName = "Item 12", list_id = 0)
+        queries.insertListWithId(list_id = 100, listName = "List 1")
+        queries.insertItemWithId(item_id = 0, itemName = "Item 11", list_id = 100)
+        queries.insertItemWithId(item_id = 1, itemName = "Item 12", list_id = 100)
 
-        queries.insertListWithId(list_id = 1, listName = "List 2")
-        queries.insertItemWithId(item_id = 2, itemName = "Item 21", list_id = 1)
+        queries.insertListWithId(list_id = 200, listName = "List 2")
+        queries.insertItemWithId(item_id = 2, itemName = "Item 21", list_id = 200)
 
         // Act
-        val foundList = subject.getList(0)
+        val foundList = subject.getList(100)
 
         // Assert
         assertNotNull(foundList)
@@ -43,19 +44,19 @@ class ItemListDatabaseTest {
     @Test
     fun shoppingListDatabase_getShoppingLists_returnsDomainListsWithItems() {
         // Arrange
-        queries.insertListWithId(list_id = 0, listName = "List 1")
-        queries.insertItemWithId(item_id = 0, itemName = "Item 11", list_id = 0)
-        queries.insertItemWithId(item_id = 1, itemName = "Item 12", list_id = 0)
+        queries.insertListWithId(list_id = 100, listName = "List 1")
+        queries.insertItemWithId(item_id = 0, itemName = "Item 11", list_id = 100)
+        queries.insertItemWithId(item_id = 1, itemName = "Item 12", list_id = 100)
 
-        queries.insertListWithId(list_id = 1, listName = "List 2")
-        queries.insertItemWithId(item_id = 2, itemName = "Item 21", list_id = 1)
+        queries.insertListWithId(list_id = 200, listName = "List 2")
+        queries.insertItemWithId(item_id = 2, itemName = "Item 21", list_id = 200)
 
         // Act
         val lists = subject.getAll()
 
         // Assert
-        val firstList = lists.find { it.itemList.size == 2 }
-        val secondList = lists.find { it.itemList.size == 1 }
+        val firstList = lists.find { it.id == 200L }
+        val secondList = lists.find { it.id == 100L }
         assertNotNull(firstList)
         assertNotNull(secondList)
     }
@@ -70,9 +71,8 @@ class ItemListDatabaseTest {
 
         // Assert
         val listsInDatabase = queries.getLists().executeAsList()
-        assertEquals(1, listsInDatabase.size)
 
-        assertEquals(newList.name, listsInDatabase.first().listName)
+        assertTrue(listsInDatabase.any { list -> list.listName == newList.name })
     }
 
     @Test

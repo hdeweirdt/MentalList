@@ -3,36 +3,42 @@ package be.harm.mentallist
 import android.content.Context
 import be.harm.database.Database
 import be.harm.database.ListDatabase
-import be.harm.database.ShoppingListsQueries
+import be.harm.database.ListRepositoryImpl
+import be.harm.database.Schema
 import be.harm.database.mappers.ItemMapper
 import be.harm.database.mappers.ListMapper
+import be.harm.domain.ListRepository
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 
 class Injector(private val context: Context) {
 
-    fun provideListDatabase(): ListDatabase {
-        return ListDatabase(
-            listQueries = provideQueries(),
+    fun provideListRepository(): ListRepository {
+        return ListRepositoryImpl(
+            listDatabase = provideListDatabase(),
             itemMapper = provideItemMapper(),
             listMapper = provideListMapper()
         )
     }
 
-    fun provideQueries(): ShoppingListsQueries {
-        val androidDriver = provideDatabaseDriver()
-        return Database(androidDriver).shoppingListsQueries
+    private fun provideListDatabase(): Database {
+        if (!ListDatabase.ready) {
+            val androidDriver = provideDatabaseDriver()
+            ListDatabase.setupDatabase(androidDriver)
+        }
+        return ListDatabase.instance
     }
 
-    fun provideDatabaseDriver(): SqlDriver {
-        return AndroidSqliteDriver(Database.Schema, context, "listDatabase.db")
+    private fun provideDatabaseDriver(): SqlDriver {
+        // Use own implementation of Schema with a Shopping -and Todolist already available
+        return AndroidSqliteDriver(Schema, context, "listDatabase.db")
     }
 
-    fun provideItemMapper(): ItemMapper {
+    private fun provideItemMapper(): ItemMapper {
         return ItemMapper()
     }
 
-    fun provideListMapper(): ListMapper {
+    private fun provideListMapper(): ListMapper {
         return ListMapper()
     }
 }
