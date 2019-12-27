@@ -15,7 +15,7 @@ import be.harm.mentallist.databinding.FragmentListBinding
 private const val SHOPPING_LIST_ID = 0L
 private const val TODO_LIST_ID = 1L
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(), NewItemDialog.NewItemDialogListener {
     private lateinit var binding: FragmentListBinding
 
     private lateinit var listViewModel: ListViewModel
@@ -30,7 +30,7 @@ class ListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val listRepository = injector.provideListDatabase()
+        val listRepository = injector.provideListRepository()
         val vmFactory = ListViewModelFactory(SHOPPING_LIST_ID, listRepository)
         listViewModel = ViewModelProviders.of(this, vmFactory).get(ListViewModel::class.java)
     }
@@ -51,7 +51,7 @@ class ListFragment : Fragment() {
         binding.rvItemList.adapter = ItemListAdapter()
         binding.rvItemList.layoutManager = LinearLayoutManager(requireContext())
 
-        listViewModel.items.observe(this, Observer { itemList ->
+        listViewModel.items.observe(viewLifecycleOwner, Observer { itemList ->
             (binding.rvItemList.adapter as ItemListAdapter).submitList(itemList)
         })
     }
@@ -59,7 +59,13 @@ class ListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.fabItemListAddItem.setOnClickListener {
-            listViewModel.addItemWithName("testNaam")
+            val addNewItemDialog = NewItemDialog()
+            addNewItemDialog.setTargetFragment(this, 1)
+            addNewItemDialog.show(fragmentManager!!, "AddNewItemDialog")
         }
+    }
+
+    override fun onAddItemClicked(newItemName: String) {
+        listViewModel.addItemWithName(newItemName)
     }
 }

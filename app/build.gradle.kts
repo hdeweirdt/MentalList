@@ -38,6 +38,8 @@ dependencies {
     implementation(AndroidDependencies.appCompat)
     implementation(AndroidDependencies.core)
     implementation(AndroidDependencies.lifecycleExtensions)
+    implementation(AndroidDependencies.lifecycleLiveData)
+    implementation(AndroidDependencies.lifecycleViewModel)
 
     implementation(UiDependencies.constraintLayout)
     implementation(UiDependencies.materialDesign)
@@ -49,6 +51,7 @@ dependencies {
 
     testImplementation(TestDependencies.junit)
     testImplementation(TestDependencies.mockk)
+    testImplementation(CommonDependencies.coroutinesTest)
     testImplementation(TestDependencies.androidArchCoreTest)
 
     androidTestImplementation(TestDependencies.android_junit)

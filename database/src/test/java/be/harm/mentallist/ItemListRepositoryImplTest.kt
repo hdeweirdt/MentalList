@@ -23,7 +23,7 @@ class ItemListRepositoryImplTest : DatabaseTest() {
     }
 
     @Test
-    fun shoppingListDatabase_getList_returnsDomainListWithItems() {
+    fun getList_returnsDomainListWithItems() {
         // Arrange
         queries.insertListWithId(list_id = 100, listName = "List 1")
         queries.insertItemWithId(item_id = 0, itemName = "Item 11", list_id = 100)
@@ -46,7 +46,7 @@ class ItemListRepositoryImplTest : DatabaseTest() {
     }
 
     @Test
-    fun shoppingListDatabase_getShoppingLists_returnsDomainListsWithItems() {
+    fun getShoppingLists_returnsDomainListsWithItems() {
         // Arrange
         queries.insertListWithId(list_id = 100, listName = "List 1")
         queries.insertItemWithId(item_id = 0, itemName = "Item 11", list_id = 100)
@@ -68,7 +68,7 @@ class ItemListRepositoryImplTest : DatabaseTest() {
     }
 
     @Test
-    fun shoppingListDatabase_addList_adds() {
+    fun addList_adds() {
         // Arrange
         val newList = ItemList(name = "TestList")
 
@@ -84,7 +84,7 @@ class ItemListRepositoryImplTest : DatabaseTest() {
     }
 
     @Test
-    fun shoppingListDatabase_addItem_linkedToList() {
+    fun addItem_linkedToList() {
         // Arrange
         val list = ItemList(id = 10, name = "TestList")
         val item = Item(name = "TestItem")
@@ -100,5 +100,10 @@ class ItemListRepositoryImplTest : DatabaseTest() {
         assertEquals(1, itemsInList.size)
         val itemInDatabase = itemsInList.first()
         assertEquals(item.name, itemInDatabase.itemName)
+    }
+
+    @Test(expected = NoSuchElementException::class)
+    fun getList_missingList_NoSuchElementException() = runBlockingTest{
+        subject.getList(-100)
     }
 }

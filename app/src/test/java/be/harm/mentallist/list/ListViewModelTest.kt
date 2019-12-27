@@ -1,44 +1,79 @@
 package be.harm.mentallist.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import be.harm.domain.Item
 import be.harm.domain.ItemList
 import be.harm.domain.ListRepository
+import be.harm.mentallist.list.util.DummyListRepository
 import be.harm.mentallist.list.util.getOrAwaitValue
 import io.mockk.clearAllMocks
-import io.mockk.every
-import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class ListViewModelTest {
     private lateinit var subject: ListViewModel
-    private val listRepository: ListRepository = mockk()
+    private lateinit var listRepository: ListRepository
 
     private val listId: Long = 0L
+    private val list = ItemList(name = "testList", id = listId)
 
     @Rule
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
+    @Before
+    fun setUp() {
+        Dispatchers.setMain(testDispatcher)
+        listRepository = DummyListRepository()
+        runBlockingTest {
+            listRepository.addList(list)
+        }
+    }
+
     @After
     fun tearDown() {
         clearAllMocks()
+        Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
     }
 
     @Test
-    fun listVM_onLoaded_showItemsOnList() {
+    fun whenLoaded_shouldShowList() = runBlockingTest {
         // Arrange
-        val list = ItemList(name = "testList", id = listId)
-        every { listRepository.getList(listId) } returns list
+        list.add(Item("Item1"))
+        list.add(Item("Item2"))
 
         // Act
         subject = ListViewModel(listId, listRepository)
 
         // Assert
-        Assert.assertNotNull(subject.items)
+        assertNotNull(subject.items)
         assertEquals(list.itemList, subject.items.getOrAwaitValue())
+    }
+
+    @Test
+    fun whenAddItem_shouldShowUpInList() = runBlockingTest {
+        // Arrange
+        subject = ListViewModel(listId, listRepository)
+
+        // Act
+        subject.addItemWithName("TestName")
+
+        // Assert
+        assertTrue(subject.items.getOrAwaitValue().any { it.name == "TestName" })
     }
 }
