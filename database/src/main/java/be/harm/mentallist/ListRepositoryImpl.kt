@@ -51,4 +51,8 @@ class ListRepositoryImpl(
     override suspend fun addItem(item: Item, itemList: ItemList) {
         listQueries.insertItem(item.name, itemList.id)
     }
+
+    override suspend fun removeItem(item: Item) {
+        listQueries.removeItem(item.id)
+    }
 }

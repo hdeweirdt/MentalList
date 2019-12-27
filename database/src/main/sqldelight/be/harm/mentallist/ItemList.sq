@@ -1,4 +1,4 @@
--- SHOPPING LIST
+-- LISTó
 CREATE TABLE listEntity(
     list_id INTEGER PRIMARY KEY,
     listName TEXT NOT NULL
@@ -36,3 +36,6 @@ INSERT INTO ItemEntity(item_id, itemName, list_id) VALUES (?, ?, ?);
 
 getItemsFromList:
 SELECT * FROM ItemEntity WHERE list_id = ?;
+
+removeItem:
+DELETE FROM ItemEntity WHERE item_id = ?;

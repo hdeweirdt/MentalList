@@ -8,4 +8,6 @@ interface ListRepository {
     suspend fun addList(newList: ItemList)
 
     suspend fun addItem(item: Item, itemList: ItemList)
+
+    suspend fun removeItem(item: Item)
 }
