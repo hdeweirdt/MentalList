@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/bottomNav_shopping" />
-    <item android:title="@string/bottomNav_todo" />
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_shopping"
+        app:showAsAction="always"
+        android:orderInCategory="1"
+        android:title="@string/bottomNav_shopping" />
+    <item
+        android:id="@+id/fragment_todo"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="2"
+        android:title="@string/bottomNav_todo" />
 </menu>

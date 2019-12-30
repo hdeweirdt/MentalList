@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import be.harm.mentallist.Injector
 import be.harm.mentallist.databinding.FragmentListBinding
 
-private const val SHOPPING_LIST_ID = 0L
-private const val TODO_LIST_ID = 1L
-
-class ListFragment : Fragment(), NewItemDialog.NewItemDialogListener {
+abstract class ListFragment : Fragment(), NewItemDialog.NewItemDialogListener {
+    abstract val listId: Long
     private lateinit var binding: FragmentListBinding
 
     private lateinit var listViewModel: ListViewModel
@@ -32,7 +30,7 @@ class ListFragment : Fragment(), NewItemDialog.NewItemDialogListener {
         super.onCreate(savedInstanceState)
 
         val listRepository = injector.provideListRepository()
-        val vmFactory = ListViewModelFactory(SHOPPING_LIST_ID, listRepository)
+        val vmFactory = ListViewModelFactory(listId, listRepository)
         listViewModel = ViewModelProviders.of(this, vmFactory).get(ListViewModel::class.java)
     }
 
