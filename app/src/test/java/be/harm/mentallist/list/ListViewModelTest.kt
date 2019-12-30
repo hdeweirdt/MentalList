@@ -27,7 +27,7 @@ class ListViewModelTest {
     private lateinit var listRepository: ListRepository
 
     private val listId: Long = 0L
-    private val list = ItemList(name = "testList", id = listId)
+    private lateinit var list: ItemList
 
     @Rule
     @JvmField
@@ -37,6 +37,7 @@ class ListViewModelTest {
 
     @Before
     fun setUp() {
+        list = ItemList(name = "testList", id = listId)
         Dispatchers.setMain(testDispatcher)
         listRepository = DummyListRepository()
         runBlockingTest {
@@ -75,5 +76,29 @@ class ListViewModelTest {
 
         // Assert
         assertTrue(subject.items.getOrAwaitValue().any { it.name == "TestName" })
+    }
+
+    @Test
+    fun whenRemoveItem_removedFromList() = runBlockingTest {
+        // Arrange
+        val item = Item("WillBeDeleted")
+        listRepository.addItem(item, list)
+        subject = ListViewModel(listId, listRepository)
+
+        // Act
+        subject.removeItem(item)
+
+        // Assert
+        assertTrue(subject.items.getOrAwaitValue().contains(item))
+    }
+
+    @Test
+    fun givenEmptyList_whenRemoveItem_noError() = runBlockingTest {
+        // Arrange
+        val item = Item("WillBeDeleted")
+        subject = ListViewModel(listId, listRepository)
+
+        // Act
+        subject.removeItem(item)
     }
 }

@@ -37,8 +37,17 @@ class ListViewModel(
         }
     }
 
+    fun removeItem(item: Item) {
+        viewModelScope.launch(Dispatchers.IO) {
+            listRepository.removeItem(item)
+            updateItems()
+        }
+    }
+
     private suspend fun updateItems() {
-        list = listRepository.getList(listId)
+        withContext(Dispatchers.IO) {
+            list = listRepository.getList(listId)
+        }
         _items.postValue(list?.itemList)
     }
 }

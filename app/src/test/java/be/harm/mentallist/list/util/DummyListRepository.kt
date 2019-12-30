@@ -22,4 +22,8 @@ class DummyListRepository : ListRepository {
     override suspend fun addItem(item: Item, itemList: ItemList) {
         lists[itemList.id]!!.add(item)
     }
+
+    override suspend fun removeItem(item: Item) {
+        lists.forEach { (_, itemList) -> itemList.remove(item) }
+    }
 }

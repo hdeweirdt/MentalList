@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.harm.mentallist.Injector
 import be.harm.mentallist.databinding.FragmentListBinding
@@ -48,8 +49,12 @@ class ListFragment : Fragment(), NewItemDialog.NewItemDialogListener {
     }
 
     private fun setUpRecyclerView() {
-        binding.rvItemList.adapter = ItemListAdapter()
+        val adapter = ItemListAdapter()
+        binding.rvItemList.adapter = adapter
         binding.rvItemList.layoutManager = LinearLayoutManager(requireContext())
+
+        val swipeToDeleteHelper = ItemTouchHelper(SwipeToDeleteCallback(adapter, listViewModel))
+        swipeToDeleteHelper.attachToRecyclerView(binding.rvItemList)
 
         listViewModel.items.observe(viewLifecycleOwner, Observer { itemList ->
             (binding.rvItemList.adapter as ItemListAdapter).submitList(itemList)
