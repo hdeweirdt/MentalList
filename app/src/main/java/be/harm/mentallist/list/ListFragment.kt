@@ -18,9 +18,9 @@ abstract class ListFragment : Fragment(), NewItemDialog.NewItemDialogListener {
     abstract val listId: Long
     private lateinit var binding: FragmentListBinding
 
-    private lateinit var listViewModel: ListViewModel
+    protected lateinit var listViewModel: ListViewModel
 
-    private lateinit var injector: Injector
+    protected lateinit var injector: Injector
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -29,7 +29,10 @@ abstract class ListFragment : Fragment(), NewItemDialog.NewItemDialogListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setUpViewModel()
+    }
 
+    protected open fun setUpViewModel() {
         val listRepository = injector.provideListRepository()
         val vmFactory = ListViewModelFactory(listId, listRepository)
         listViewModel = ViewModelProviders.of(this, vmFactory).get(ListViewModel::class.java)

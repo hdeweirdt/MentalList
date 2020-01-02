@@ -26,6 +26,10 @@ android {
     dataBinding {
         isEnabled = true
     }
+    kotlinOptions {
+        this as org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {

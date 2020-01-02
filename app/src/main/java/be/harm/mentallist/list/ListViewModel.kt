@@ -11,15 +11,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ListViewModel(
+open class ListViewModel(
     private val listId: Long,
     private val listRepository: ListRepository
 ) : ViewModel() {
 
     private var list: ItemList? = null
 
-    private val _items = MutableLiveData<List<Item>>()
-    val items: LiveData<List<Item>> = _items
+    protected val _items = MutableLiveData<List<Item>>()
+    open val items: LiveData<List<Item>> = _items
 
     init {
         viewModelScope.launch(context = Dispatchers.IO) {
