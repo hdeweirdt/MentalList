@@ -9,9 +9,9 @@ import be.harm.mentallist.list.ListViewModel
 class LimitedListViewModel(
     listId: Long,
     listRepository: ListRepository,
-    private val numberOfItemsToShow: Int
+    private val numberOfItemsToShow: Int = 3
 ) : ListViewModel(listId, listRepository) {
 
     override val items: LiveData<List<Item>>
-        get() = _items.map { it.subList(0, numberOfItemsToShow) }
+        get() = _items.map { it.take(numberOfItemsToShow) }
 }
