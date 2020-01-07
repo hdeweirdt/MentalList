@@ -1,6 +1,5 @@
 package be.harm.mentallist.list
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,16 +51,26 @@ abstract class ListFragment : Fragment(), NewItemDialog.NewItemDialogListener {
         binding.rvItemList.adapter = adapter
         binding.rvItemList.layoutManager = LinearLayoutManager(requireContext())
 
-        val swipeToDeleteHelper = ItemTouchHelper(SwipeToDeleteCallback(adapter, listViewModel))
-        swipeToDeleteHelper.attachToRecyclerView(binding.rvItemList)
+        setUpSwipeItemToDelete(adapter)
+        setUpItemDivider()
+        listenToItemListUpdates()
+    }
 
-        binding.rvItemList.addItemDecoration(
-            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-        )
-
+    private fun listenToItemListUpdates() {
         listViewModel.items.observe(viewLifecycleOwner, Observer { itemList ->
             (binding.rvItemList.adapter as ItemListAdapter).submitList(itemList)
         })
+    }
+
+    private fun setUpItemDivider() {
+        binding.rvItemList.addItemDecoration(
+            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        )
+    }
+
+    private fun setUpSwipeItemToDelete(adapter: ItemListAdapter) {
+        val swipeToDeleteHelper = ItemTouchHelper(SwipeToDeleteCallback(adapter, listViewModel))
+        swipeToDeleteHelper.attachToRecyclerView(binding.rvItemList)
     }
 
     override fun onStart() {
