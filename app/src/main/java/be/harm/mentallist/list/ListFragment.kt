@@ -20,11 +20,8 @@ abstract class ListFragment : Fragment(), NewItemDialog.NewItemDialogListener {
 
     protected lateinit var listViewModel: ListViewModel
 
-    protected lateinit var injector: Injector
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        injector = Injector(context)
+    protected val injector by lazy {
+        Injector(requireContext())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
